@@ -167,7 +167,8 @@
   #tfl .dot{ width:2.2vh; height:2.2vh; border-radius:50%; background:var(--alert); flex:none; margin-top:0.6vh; }
   #tfl-text{ font-size:2.4vh; font-weight:500; color:var(--alert); line-height:1.3; }
 
-  .footer{ font-family:'JetBrains Mono', monospace; font-size:1.9vh; letter-spacing:1px; color:var(--ink-faint); text-align:center; margin-top:1vh; z-index:1; position:relative; }
+  .footer{ font-family:'JetBrains Mono', monospace; font-size:1.9vh; letter-spacing:1px; color:var(--ink-faint); text-align:center; margin-top:1vh; z-index:1; position:relative; display:flex; align-items:center; justify-content:center; gap:0.8vw; }
+  #logo{ width:6vh; height:6vh; border-radius:50%; opacity:0.9; }
 
   #offscreen{
     position:fixed; inset:0; background:#000; z-index:50;
@@ -224,7 +225,7 @@
       </div>
     </div>
 
-    <div class="footer">Blends &amp; Beyond, Oakwood &middot; updates every 10 min</div>
+    <div class="footer">Blends &amp; Beyond, Oakwood &middot; TFL information updates every minute<img id="logo" src="data:image/jpeg;base64,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" alt="Blends &amp; Beyond"></div>
   </div>
 </div>
 
@@ -235,6 +236,7 @@
 const LAT = 51.6478, LON = -0.1322; // Oakwood, London N14
 const ON_HOUR = 7, OFF_HOUR = 23; // display active 07:00–22:59
 const REFRESH_MS = 10 * 60 * 1000; // 10 minutes
+const ARRIVALS_REFRESH_MS = 60 * 1000; // 1 minute
 
 /* ---------- SCREEN ON/OFF WINDOW ---------- */
 function applyScreenWindow(){
@@ -554,6 +556,7 @@ async function updateTfl(){
 function refreshAll(){ updateWeather(); updateTfl(); updateArrivals(); }
 refreshAll();
 setInterval(refreshAll, REFRESH_MS);
+setInterval(updateArrivals, ARRIVALS_REFRESH_MS);
 </script>
 </body>
 </html>
