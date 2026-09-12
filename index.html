@@ -72,6 +72,14 @@
   body.night{ --clock-color:#5fa8ff; }
 
   #scene{ position:absolute; inset:0; z-index:0; }
+  @keyframes steamRise{
+    0%{ transform:translate(0,0) scale(0.85); opacity:0; }
+    15%{ opacity:0.55; }
+    50%{ transform:translate(7px,-32px) scale(1); opacity:0.4; }
+    85%{ opacity:0.12; }
+    100%{ transform:translate(-5px,-64px) scale(1.2); opacity:0; }
+  }
+  .steam-wisp{ animation:steamRise 4.5s ease-in-out infinite; transform-origin:center bottom; }
   @keyframes driftSlow{ from{ transform:translateX(-15px); } to{ transform:translateX(15px); } }
   @keyframes driftMed{ from{ transform:translateX(-25px); } to{ transform:translateX(20px); } }
   @keyframes driftFast{ from{ transform:translateX(-35px); } to{ transform:translateX(30px); } }
@@ -358,6 +366,19 @@ function renderScene(weatherCode, isNight){
   if(thunder){
     svg += `<polyline points="${cupCX+10},150 ${cupCX-15},210 ${cupCX+12},210 ${cupCX-12},270" fill="none" stroke="var(--sun)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity="0.9" class="bolt-flash"/>`;
   }
+
+  /* ---- rising steam, always present regardless of weather ---- */
+  const steamColor = isNight ? '#dfe7ea' : '#ffffff';
+  const wisps = [
+    { dx:-22, delay:0,    height:70 },
+    { dx:0,   delay:1.5,  height:80 },
+    { dx:20,  delay:3.0,  height:65 }
+  ];
+  wisps.forEach(w => {
+    const bx = cupCX + w.dx, by = rimY - 8;
+    const path = `M${bx-8},${by} C${bx-16},${by-w.height*0.4} ${bx+4},${by-w.height*0.6} ${bx-6},${by-w.height}`;
+    svg += `<path d="${path}" fill="none" stroke="${steamColor}" stroke-width="6" stroke-linecap="round" opacity="0.5" class="steam-wisp" style="animation-delay:${w.delay}s"/>`;
+  });
 
   scene.innerHTML = svg;
 }
